@@ -1,0 +1,15 @@
+| QC-002 | 2026-10-27 | patient_nbr | 101,766 encounters beling to 71,518
+unique patients. 16,773 patients (23.5%) have more than one encounter and 
+together account for 47,021 encounters (46.2% of all rows). 139 patients 
+have 10+ encounters; the maximu is 40 for a single patient. No fully 
+duplicated rows. | 47,201 | High | Keep the first encounter per patient(lowest
+encounter_id), following Strack et al. This removes within-patient correlation 
+and stops the same patient appearing in both training and test data. | Closed|
+
+| QC-004 | 2026-10-27 | A1Cresult, max_glu_serum, all '?' columns | With pandas' 
+default read_csv, the string "None" (test not performed) is converted to 
+NaN: 84,748 A1Cresult and 96,420 max_glu_serum values were wrongly flagged 
+as missing, while '?' (the dataset's real missing marker) was kept as text, 
+so weight and other columns showed 0 missing. | 84,748 / 96,420 | High | Load with 
+keep_default_na=False, na_values=["?"] (utils.load_raw). Verified: "None" retained
+ as a category, no literal '?' remaining. | Closed |
