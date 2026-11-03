@@ -13,3 +13,23 @@ as missing, while '?' (the dataset's real missing marker) was kept as text,
 so weight and other columns showed 0 missing. | 84,748 / 96,420 | High | Load with 
 keep_default_na=False, na_values=["?"] (utils.load_raw). Verified: "None" retained
  as a category, no literal '?' remaining. | Closed |
+
+| QC-003 | 2026-11-02 | weight | 98,569 of 101,766 values missing (96.9%); 
+only 3,197 encounters have a recorded weight | 98,569 | Medium | 
+Too sparse to use or impute reliably; drop the variable | Closed |
+
+| QC-006 | 2026-11-02 | medical_specialty | 49,949 missing (49.1%) | 
+49,949 | Medium | Keep; code "Missing" as its own category; 
+group rare specialties into "Other" during feature engineering | Closed |
+
+| QC-007 | 2026-11-02 | payer_code | 40,256 missing (39.6%) | 40,256 | Medium |
+ Keep; code "Missing" as its own category. Not in the 
+ primary model (following Strack et al.); used for subgroup checks only | Closed |
+
+ | QC-008 | 2026-11-02 | race | 2,273 missing (2.2%) | 2,273 | Low | Keep; 
+ code "Missing" as its own category | Closed |
+
+ | QC-009 | 2026-11-02 | diag_1, diag_2, diag_3 | Missing: diag_1 21 (0.02%), 
+ diag_2 358 (0.4%), diag_3 1,423 (1.4%) | 1,802 | Low | diag_1 missing assigned 
+ to the "Other" diagnosis group; diag_2/diag_3 used only in derived counts, so missing 
+ values are not imputed | Closed |
