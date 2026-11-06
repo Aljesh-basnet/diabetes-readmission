@@ -18,18 +18,25 @@ keep_default_na=False, na_values=["?"] (utils.load_raw). Verified: "None" retain
 only 3,197 encounters have a recorded weight | 98,569 | Medium | 
 Too sparse to use or impute reliably; drop the variable | Closed |
 
-| QC-006 | 2026-11-02 | medical_specialty | 49,949 missing (49.1%) | 
-49,949 | Medium | Keep; code "Missing" as its own category; 
-group rare specialties into "Other" during feature engineering | Closed |
+| QC-006 | 2026-11-05 | medical_specialty | 49,949 missing (49.1%). 30-day
+readmission: present 10.8% vs missing 11.6%; difference under 1 point, 
+so missingness is not meaningfully associated with the outcome | 49,949 |
+Medium | Keep; code "Missing" as its own category; group rare specialties 
+into "Other" during feature engineering | Closed |
 
-| QC-007 | 2026-11-02 | payer_code | 40,256 missing (39.6%) | 40,256 | Medium |
- Keep; code "Missing" as its own category. Not in the 
- primary model (following Strack et al.); used for subgroup checks only | Closed |
+| QC-007 | 2026-11-05 | payer_code | 40,256 missing (39.6%). 30-day readmission:
+present 10.9% vs missing 11.5%; difference under 1 point | 40,256 | Medium | 
+Keep; code "Missing" as its own category. Not in the primary model 
+(following Strack et al.); used for subgroup checks only | Closed |
 
- | QC-008 | 2026-11-02 | race | 2,273 missing (2.2%) | 2,273 | Low | Keep; 
- code "Missing" as its own category | Closed |
+| QC-008 | 2026-11-05 | race | 2,273 missing (2.2%). 30-day readmission: 
+present 11.2% vs missing 8.3%; missing-race encounters are readmitted less often, 
+so missingness is not random (possibly differences in recording practice between hospitals;
+no hospital ID available to confirm) | 2,273 | Medium | Keep "Missing" as its own category; 
+do not drop or impute, as either would bias results. Recheck the rate on the final cohort. 
+Note in limitations | Open (recheck after cohort) |
 
- | QC-009 | 2026-11-02 | diag_1, diag_2, diag_3 | Missing: diag_1 21 (0.02%), 
+| QC-009 | 2026-11-02 | diag_1, diag_2, diag_3 | Missing: diag_1 21 (0.02%), 
  diag_2 358 (0.4%), diag_3 1,423 (1.4%) | 1,802 | Low | diag_1 missing assigned 
  to the "Other" diagnosis group; diag_2/diag_3 used only in derived counts, so missing 
  values are not imputed | Closed |
