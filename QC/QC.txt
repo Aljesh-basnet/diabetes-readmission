@@ -44,3 +44,12 @@ Note in limitations | Open (recheck after cohort) |
  to the "Other" diagnosis group; diag_2/diag_3 used only in derived counts, so missing 
  values are not imputed | Closed |
 
+| QC-010 | 2026-11-05 | readmitted | Outcome values clean (NO / >30 / <30, no missing; 
+total 101,766). NO 54,864 (53.9%), >30 35,545 (34.9%), <30 11,357 (11.2%). Binary outcome 
+readmit_30 is imbalanced: 11.2% positive; predicting "not readmitted" for everyone would 
+be 88.8% accurate. Rate is encounter-level and expected to change after the first-encounter-per-patient 
+restriction. | 11,357 positives | Medium | readmit_30 = 1 if <30, else 0 (>30 coded 0: 30-day is 
+the standard quality metric and matches Strack et al.). Use class weights; report AUROC and PR-AUC 
+(baseline 0.112) plus calibration; do not report accuracy as a headline metric; never resample the test set.
+ Report the cohort-level rate after cohort derivation. | Closed |
+
