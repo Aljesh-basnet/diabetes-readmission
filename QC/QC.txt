@@ -63,3 +63,5 @@ number_emergency 76, number_outpatient 42, number_inpatient 21, num_lab_procedur
 values (real patients; removing them would bias toward healthier patients). Consider capping at the 99th percentile
 or log-transforming visit counts for logistic regression only; record the choice in the analysis plan before modelling. 
 | Closed |
+
+| QC-012 | 2026-11-14 | diag_1 | Primary diagnosis grouped into 9 categories using Strack et al. ICD-9 ranges. In the cohort: 10 missing, 918 V codes, 1 E code; all assigned to "Other". "Other" (12,134; 17.3%) reviewed: top codes are cellulitis (682), general symptoms (780), fluid/electrolyte disorders (276), septicemia (38), rehabilitation (V57) and mental health (295, 296), all correctly outside the named groups. Function verified with unit tests on known codes. | 929 | Low | Keep the paper's 9 groups for a faithful replication; finer grouping of "Other" may be explored as a sensitivity analysis. | Closed |
