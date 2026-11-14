@@ -1,3 +1,12 @@
+| QC-001 | 2026-11-13 | discharge_disposition_id | 2,423 encounters (2.4%) ended 
+in death or hospice: expired 1,652 (code 11: 1,642; 19: 8; 20: 2; 21: none present),
+hospice 771 (code 13: 399; 14: 372). Consistency check passed: all 1,652 expired 
+encounters are recorded as not readmitted. Hospice encounters include 43 readmitted <30 days 
+(5.6%) and 43 >30 days, which is plausible but reflects a population with different care goals. 
+2,423 | High | Exclude all expired and hospice encounters (cohort step 1), following 
+Strack et al.: expired patients cannot be readmitted and hospice patients' readmission risk is
+not comparable. | Closed |
+
 | QC-002 | 2026-10-27 | patient_nbr | 101,766 encounters beling to 71,518
 unique patients. 16,773 patients (23.5%) have more than one encounter and 
 together account for 47,021 encounters (46.2% of all rows). 139 patients 
@@ -32,12 +41,7 @@ present 10.9% vs missing 11.5%; difference under 1 point | 40,256 | Medium |
 Keep; code "Missing" as its own category. Not in the primary model 
 (following Strack et al.); used for subgroup checks only | Closed |
 
-| QC-008 | 2026-11-05 | race | 2,273 missing (2.2%). 30-day readmission: 
-present 11.2% vs missing 8.3%; missing-race encounters are readmitted less often, 
-so missingness is not random (possibly differences in recording practice between hospitals;
-no hospital ID available to confirm) | 2,273 | Medium | Keep "Missing" as its own category; 
-do not drop or impute, as either would bias results. Recheck the rate on the final cohort. 
-Note in limitations | Open (recheck after cohort) |
+| QC-008 | 2026-11-13 | race | Raw encounters: 2,273 missing (2.2%); readmit <30 present 11.2% vs missing 8.3%. Rechecked on final cohort (69,987 patients): 1,917 missing (2.7%); readmit <30 Missing 7.4%, Caucasian 9.2%, AfricanAmerican 8.7%, Other 7.7%. Gap narrowed after de-duplication (part was driven by repeat patients) but persists (~1.6 points, approx. p≈0.01). Missingness is not random; possibly differences in recording practice between hospitals (no hospital ID available to confirm). | 1,917 | Medium | Keep "Missing" as its own category in race_grp (Caucasian / AfricanAmerican / Other / Missing, following Strack et al.); do not drop or impute. Race used for adjustment and fairness auditing only. Noted in limitations. | Closed |
 
 | QC-009 | 2026-11-02 | diag_1, diag_2, diag_3 | Missing: diag_1 21 (0.02%), 
  diag_2 358 (0.4%), diag_3 1,423 (1.4%) | 1,802 | Low | diag_1 missing assigned 
