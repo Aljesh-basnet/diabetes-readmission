@@ -53,3 +53,9 @@ the standard quality metric and matches Strack et al.). Use class weights; repor
 (baseline 0.112) plus calibration; do not report accuracy as a headline metric; never resample the test set.
  Report the cohort-level rate after cohort derivation. | Closed |
 
+| QC-011 | 2026-11-13 | 8 numeric count columns | Converted from text to integer: no values lost (0 NaN created,
+values identical). No impossible values; time_in_hospital 1-14 as documented. Extreme but plausible maxima: 
+number_emergency 76, number_outpatient 42, number_inpatient 21, num_lab_procedures 132. | 0 | Low | Retain all
+values (real patients; removing them would bias toward healthier patients). Consider capping at the 99th percentile
+or log-transforming visit counts for logistic regression only; record the choice in the analysis plan before modelling. 
+| Closed |
