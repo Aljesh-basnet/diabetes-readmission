@@ -86,3 +86,21 @@ Place the two source files in `data/raw/`, then run the notebooks in order.
 - Readmissions to hospitals outside the network are not captured.
 - No hospital identifier, so differences in recording practice between hospitals (for example, the race missingness pattern) cannot be examined.
 - Encounter order is inferred from `encounter_id`, as the data contains no dates.
+
+## Key findings: replication of Strack et al. (2014)
+Cohort: 69,987 patients (first encounter each); 30-day readmission 9.0%.
+
+1. **HbA1c testing had no independent association with readmission overall.** Unadjusted, patients with a high HbA1c result and no medication change had lower odds than untested patients (OR 0.84, 95% CI 0.74-0.95). After adjustment for age, sex, race, admission source, discharge disposition, primary diagnosis, specialty, length of stay and prior admissions, no HbA1c group differed from untested patients (all 95% CIs include 1). The raw difference was largely explained by who gets tested.
+2. **Evidence that the effect varies by primary diagnosis was borderline** (likelihood ratio test for HbA1c x diagnosis interaction: chi2 = 35.83, df = 24, p = 0.057; not significant at the pre-specified 0.05 level). In diagnosis-specific models, testing was associated with lower readmission for injury (OR 0.60, 0.43-0.84) and respiratory admissions (OR 0.77, 0.62-0.96), but not for circulatory admissions, the largest group (OR 1.03, 0.92-1.16). Only the injury result survives a Bonferroni correction for 9 comparisons.
+3. **The strongest predictors were prior inpatient admissions** (OR 1.57 per admission, capped at [cap value]) **and discharge somewhere other than home** (OR 1.71, 1.61-1.81), followed by age 60+ (OR 1.22, 1.15-1.30).
+
+These are observational associations; residual confounding cannot be excluded.
+
+## Prediction (validation set, n = 10,498)
+| Model | AUROC | PR-AUC |
+|---|---|---|
+| Logistic regression (class-weighted) | 0.644 | 0.146 |
+| Gradient-boosted trees (scikit-learn HistGradientBoosting, class-weighted) | 0.644 | 0.147 |
+| No-skill baseline | 0.500 | 0.090 |
+
+Both models identify readmissions about 1.6x better than chance. The more flexible tree model added no discrimination, suggesting the available variables carry mostly additive signal; the simpler, interpretable logistic model is preferred. Test-set results to follow.
